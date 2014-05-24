@@ -1,0 +1,6 @@
+to host the server
+1.https://www.openshift.com/blogs/paas-websockets
+2.https://www.pythonanywhere.com/
+3.https://ngrok.com/
+4.https://github.com/ramr/openshift-tornado-websockets
+5.http://stackoverflow.com/questions/18321103/minimal-socket-server-written-in-python-for-openshift
