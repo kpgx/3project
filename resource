@@ -1,2 +1,0 @@
-login message = "LOGIN #name " + userName + " #enckey " + cipherpass + " @mysensors\n"
-ecrypted password for pass '1234'(cipherpass) = h81smMHgTTai9zw1XIqcArZ8ipEe0VuUXZqaMQAfQh2IkC4Qmsm+kaElbh6fYgwSFMGQGoLmMjf8M5beZOm8+Y7dAayGUcWNxrF2XCGK7pL4XUoynboWCh09DPf1MjV/ZY9pLWCi8PDeLRvdGYV6VJBLwuELfBCCaSNX9oeeOX4
