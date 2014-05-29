@@ -41,19 +41,22 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/EditTextCamID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:ems="10"
+                android:hint="Cam ID"
                 android:inputType="textEmailAddress|textPersonName"
                 android:maxLines="1"
                 android:singleLine="true" />
+            	<requestFocus />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/EditTextCamPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
+                android:ems="10"
+                android:hint="@string/prompt_cam_pass"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
@@ -61,6 +64,50 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
+            <EditText
+                android:id="@+id/EditTextViewID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="View ID"
+                android:inputType="textEmailAddress|textPersonName"
+                android:maxLines="1"
+                android:singleLine="true" >
+
+                
+            </EditText>
+
+            <EditText
+                android:id="@+id/EditTextViewPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_view_pass"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
+			<RadioGroup 
+			    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/radioButtonCam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="Cam Mode" />
+
+            <RadioButton
+                android:id="@+id/radioButtonView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="View Mode" />
+		</RadioGroup>
             <Button
                 android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"

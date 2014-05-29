@@ -9,5 +9,6 @@
     <string name="title_activity_display_message">My Message</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_send_message_to_server">SendMessageToServer</string>
+    <string name="title_activity_cam_view_selector">CamViewSelector</string>
 
 </resources>

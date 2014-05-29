@@ -1,5 +1,7 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -9,11 +11,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
@@ -25,8 +29,8 @@ public class LoginActivity extends Activity {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"u1:1234", "u2:1234" };
+//	private static final String[] DUMMY_CREDENTIALS = new String[] {
+//			"u1:1234", "u2:1234" };
 
 	/**
 	 * The default email to populate the email field with.
@@ -39,16 +43,42 @@ public class LoginActivity extends Activity {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
-	private String mPassword;
+	private String mCamID;
+	private String mCamPass;
+	private String mViewID;
+	private String mViewPass;
+	private String mMode;
+	
+
 
 	// UI references.
-	private EditText mEmailView;
-	private EditText mPasswordView;
+	private EditText mCamIDView;
+	private EditText mCamPassView;
+	private EditText mViewIDView;
+	private EditText mViewPassView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
-
+	
+	/*handles the radio button */
+	public void onRadioButtonClicked(View view) {
+	    // Is the button now checked?
+	    boolean checked = ((RadioButton) view).isChecked();
+	    Log.d("radioButton", "called");
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.radioButtonCam:
+	            if (checked)
+	            	mMode="CAM";
+	            Log.d("radioButton", "CAm");
+	            break;
+	        case R.id.radioButtonView:
+	            if (checked)
+	            	mMode="VIEW";
+	            break;
+	    }
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,12 +86,28 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+//		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+		mCamIDView = (EditText) findViewById(R.id.EditTextCamID);
+//		mEmailView.setText(mEmail);
 
-		mPasswordView = (EditText) findViewById(R.id.password);
-		mPasswordView
+		mCamPassView = (EditText) findViewById(R.id.EditTextCamPass);
+		mCamPassView
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView textView, int id,
+							KeyEvent keyEvent) {
+						if (id == R.id.login || id == EditorInfo.IME_NULL) {
+							attemptLogin();
+							return true;
+						}
+						return false;
+					}
+				});
+		mViewIDView = (EditText) findViewById(R.id.EditTextViewID);
+//		mEmailView.setText(mEmail);
+
+		mViewPassView = (EditText) findViewById(R.id.EditTextViewPass);
+		mViewPassView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
 					public boolean onEditorAction(TextView textView, int id,
@@ -105,33 +151,46 @@ public class LoginActivity extends Activity {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
-		mPasswordView.setError(null);
+		mCamIDView.setError(null);
+		mCamPassView.setError(null);
+		mViewIDView.setError(null);
+		mViewPassView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
-		mPassword = mPasswordView.getText().toString();
+		mCamID = mCamIDView.getText().toString();
+		mCamPass = mCamPassView.getText().toString();
+		mViewID = mViewIDView.getText().toString();
+		mViewPass = mViewPassView.getText().toString();
 
 		boolean cancel = false;
 		View focusView = null;
 
 		// Check for a valid password.
-		if (TextUtils.isEmpty(mPassword)) {
-			mPasswordView.setError(getString(R.string.error_field_required));
-			focusView = mPasswordView;
+		if (TextUtils.isEmpty(mCamPass)) {
+			mCamPassView.setError(getString(R.string.error_field_required));
+			focusView = mCamPassView;
 			cancel = true;
-		} else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
-			focusView = mPasswordView;
+		} else if (mCamPass.length() < 1) {
+			mCamPassView.setError(getString(R.string.error_invalid_password));
+			focusView = mCamPassView;
+			cancel = true;
+		}else if (TextUtils.isEmpty(mViewPass)) {
+			mViewPassView.setError(getString(R.string.error_field_required));
+			focusView = mViewPassView;
 			cancel = true;
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_field_required));
-			focusView = mEmailView;
+		if (TextUtils.isEmpty(mCamID)) {
+			mCamIDView.setError(getString(R.string.error_field_required));
+			focusView = mCamIDView;
 			cancel = true;
-		} /*else if (!mEmail.contains("@")) {
+		}else if (TextUtils.isEmpty(mViewID)) {
+			mViewIDView.setError(getString(R.string.error_field_required));
+			focusView = mViewIDView;
+			cancel = true; 
+		}
+		/*else if (!mEmail.contains("@")) {
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
 			cancel = true;
@@ -208,16 +267,16 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
+			/*for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mEmail)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
-			}
+			}*/
 
 			// TODO: register the new account here.
-			return false;
+			return true;
 		}
 
 		@Override
@@ -226,17 +285,23 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				String result=mEmail+":"+mPassword;
+				ArrayList<String> result=new ArrayList<String>();
+				result.add(mCamID);
+				result.add(mCamPass);
+				result.add(mViewID);
+				result.add(mViewPass);
+				result.add(mMode);
+				
 				Intent returnIntent = new Intent();
-				returnIntent.putExtra("result",result);
+				returnIntent.putStringArrayListExtra("result",result);
 				setResult(RESULT_OK,returnIntent);
 				finish();
 //				finish();
-			} else {
+			} /*else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
-			}
+			}*/
 		}
 
 		@Override

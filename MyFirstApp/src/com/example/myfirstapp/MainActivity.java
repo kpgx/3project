@@ -1,5 +1,7 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,20 +21,32 @@ public class MainActivity extends ActionBarActivity {
 
 	private static final String TAG = "com.example.myfirstapp";
 	private final WebSocketConnection mConnection = new WebSocketConnection();
-	public boolean logged = false;
+	
 	static final int GET_LOGGIN_STATUS = 1;
-	static String mUserName;
-	static String mPassword;
+	static final int GET_MODE = 2;
+	
+	private String mCamID;
+	private String mCamPass;
+	private String mViewID;
+	private String mViewPass;
+	private String mMode;
+	private String mCurrentUser;
+	private String mCurrentRecepient;
+	public boolean logged = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-
+		if (savedInstanceState!=null) {
+			logged = savedInstanceState.getBoolean("logged");
+		}
+		
 		if (!logged) {
 			Log.d(TAG, "not logged, trying to log");
 			login();
@@ -48,7 +62,32 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 	}
-
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+	  super.onSaveInstanceState(savedInstanceState);
+	  // Save UI state changes to the savedInstanceState.
+	  // This bundle will be passed to onCreate if the process is
+	  // killed and restarted.
+	  if (logged) {
+		  savedInstanceState.putBoolean("logged", true);
+	}
+	  
+	  
+//	  savedInstanceState.putDouble("myDouble", 1.9);
+//	  savedInstanceState.putInt("MyInt", 1);
+//	  savedInstanceState.putString("MyString", "Welcome back to Android");
+	  // etc.
+	}
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+	  super.onRestoreInstanceState(savedInstanceState);
+	  // Restore UI state from the savedInstanceState.
+	  // This bundle has also been passed to onCreate.
+	  logged = savedInstanceState.getBoolean("logged");
+//	  double myDouble = savedInstanceState.getDouble("myDouble");
+//	  int myInt = savedInstanceState.getInt("MyInt");
+//	  String myString = savedInstanceState.getString("MyString");
+	}
 	public void login() {
 		Log.d(TAG, "login method called");
 		Intent intent = new Intent(this, LoginActivity.class);
@@ -66,19 +105,41 @@ public class MainActivity extends ActionBarActivity {
 			if (resultCode == RESULT_OK) {
 				// The user picked a contact.
 				// The Intent's data Uri identifies which contact was selected.
-				String[] result = data.getStringExtra("result").split(":");
-				mUserName = result[0];
-				mPassword = result[1];
+				ArrayList<String> result = data.getStringArrayListExtra("result");
+				mCamID = result.get(0);
+				mCamPass = result.get(1);
+				mViewID = result.get(2);
+				mViewPass = result.get(3);
+				mMode = result.get(4);
+				if (mMode.equals("CAM")) {
+					mCurrentUser=mCamID;
+					mCurrentRecepient=mViewID;
+				} else if (mMode.equals("VIEW")){
+					mCurrentUser=mViewID;
+					mCurrentRecepient=mViewID;
+				}
+				else{
+					Log.d(TAG, "error: no mode specified");
+				}
 				logged = true;
-				Log.d(TAG, "CONNECTING" + mUserName + mPassword);
-				makeConnection(mUserName, mPassword);
+				Log.d(TAG, "got from activity log: " + mCamID + mCamPass+mViewID+mViewPass+mMode);
+				makeConnection();
 				Log.d(TAG, "Status: logged");
+//				camViewSelector();
+				
 			}
 			// Do something with the contact here (bigger example below)
 			if (resultCode == RESULT_CANCELED) {
 				// Write your code if there's no result
 			}
 		}
+		if (requestCode == GET_MODE) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+				String mode = data.getStringExtra("mode");
+				Log.d(TAG, "camViewSelector returned: "+mode);
+				}
+			}
 
 	}
 
@@ -95,8 +156,13 @@ public class MainActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-
-	public void makeConnection(String userName, String passwd) {
+	/*public void camViewSelector(){
+		Log.d(TAG, "camViewSelector called");
+		Intent camViewSelector = new Intent(this, CamViewSelector.class);
+		startActivityForResult(camViewSelector, GET_MODE);
+		Log.d(TAG, "camViewSelector done");
+	}*/
+	public void makeConnection() {
 
 		// server location
 		final String wsuri = "ws://192.168.12.1:9000";
@@ -105,8 +171,22 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				public void onOpen() {
 					Log.d(TAG, "Status: Connected to " + wsuri);
-					loginToServer(mUserName, mPassword);
-					shareASensor("CHAT", "u2");
+					if (mMode.equals("CAM")){
+						loginToServer(mCamID, mCamPass);
+//						shareASensor("CHAT", mViewID);
+					}
+					else if (mMode.equals("VIEW")){
+						loginToServer(mViewID, mViewPass);
+						shareASensor("CHAT", mCamID);
+						shareASensor("AUDIO", mCamID);
+						shareASensor("VIDEO", mCamID);
+						shareASensor("LOCATION", mCamID);
+						
+					}else{
+						Log.d(TAG, "error: no mode specified");
+					}
+					
+//					shareASensor("CHAT", "u2");
 				}
 
 				@Override
@@ -136,7 +216,7 @@ public class MainActivity extends ActionBarActivity {
 
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		final String message = editText.getText().toString();
-		String txt="@"+mUserName+" DATA #CHAT "+message;
+		String txt="@"+mCurrentRecepient+" DATA #CHAT "+message;
 		try {
 
 			mConnection.sendTextMessage(txt);
