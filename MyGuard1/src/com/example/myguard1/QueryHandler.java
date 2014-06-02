@@ -14,9 +14,7 @@ import android.util.Log;
  *  2. SHARE
  *  3. GET
  *  4. LOGIN
- *  5. DATA
- *
- *  @author Eranga Herath(erangaeb@gmail.com)
+ *  5. DATA  
  */
 public class QueryHandler {
 

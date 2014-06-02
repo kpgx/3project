@@ -9,12 +9,6 @@ import android.util.Log;
 import com.example.myguard1.InvalidQueryException;
 import com.example.myguard1.Query;
 
-/**
- * Query parser for android
- * Parse incoming queries and generate Query object
- *
- * @author erangaeb@gmail.com (eranga herath)
- */
 public class QueryParser {
 
     private static final String TAG = QueryParser.class.getName();
