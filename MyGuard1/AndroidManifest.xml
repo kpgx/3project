@@ -27,6 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--  Auidio Activity -->
+        <activity android:name=".AudioActivity" />
+        
+        <!--  Videos Activity -->
+        <activity android:name=".VideosActivity" />
+        
+        <!--  Location Activity -->
+        <activity android:name=".LocationActivity" />
+        <!-- Photos Activity -->
+        <activity android:name=".PhotosActivity" />
+        
         <activity android:name=".PrefsActivity" >
         </activity>
 
