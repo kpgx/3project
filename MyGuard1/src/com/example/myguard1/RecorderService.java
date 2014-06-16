@@ -1,6 +1,9 @@
 package com.example.myguard1;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Service;
@@ -99,10 +102,18 @@ public class RecorderService extends Service {
 			mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 			mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
-			mMediaRecorder.setOutputFile("/sdcard/video.mp4");
+			
+			File mediaStorageDir = new File("/sdcard/Surveillance_namil/");
+		    if ( !mediaStorageDir.exists() ) {
+		        if ( !mediaStorageDir.mkdirs() ){
+		            Log.d("failed to create directory","namil recorder");
+		        	}
+		    	}
+		    String filePath = "/sdcard/Surveillance_namil/" + "VID_"+ new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+		    mMediaRecorder.setOutputFile(filePath);
+			//mMediaRecorder.setOutputFile("/sdcard/video.mp4");
 			mMediaRecorder.setVideoFrameRate(30);
-			mMediaRecorder
-					.setVideoSize(mPreviewSize.width, mPreviewSize.height);
+			mMediaRecorder.setVideoSize(mPreviewSize.width, mPreviewSize.height);
 			mMediaRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
 
 			mMediaRecorder.prepare();
