@@ -1079,8 +1079,23 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int ic_launcher=0x7f020057;
         public static final int ic_menu_allfriends=0x7f020058;
+        public static final int icon=0x7f020059;
+        public static final int icon_audio_tab=0x7f02005a;
+        public static final int icon_location_tab=0x7f02005b;
+        public static final int icon_photos_tab=0x7f02005c;
+        public static final int icon_videos_tab=0x7f02005d;
+        public static final int location=0x7f02005e;
+        public static final int photos_gray=0x7f02005f;
+        public static final int photos_white=0x7f020060;
+        public static final int songs_gray=0x7f020061;
+        public static final int songs_white=0x7f020062;
+        public static final int stat_sys_gps_on=0x7f020063;
+        public static final int videos_gray=0x7f020064;
+        public static final int videos_white=0x7f020065;
     }
     public static final class id {
+        public static final int StartService=0x7f06003c;
+        public static final int StopService=0x7f06003d;
         public static final int action_bar=0x7f06001c;
         public static final int action_bar_activity_content=0x7f060015;
         public static final int action_bar_container=0x7f06001b;
@@ -1092,23 +1107,24 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060043;
+        public static final int action_settings=0x7f060048;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
-        public static final int buttonSend=0x7f06003e;
+        public static final int button1=0x7f06003f;
+        public static final int button2=0x7f060040;
+        public static final int button3=0x7f060041;
+        public static final int button4=0x7f060042;
+        public static final int button_videoService=0x7f060043;
         public static final int checkbox=0x7f06002d;
         public static final int collapseActionView=0x7f06000d;
-        public static final int container=0x7f06003c;
         public static final int default_activity_button=0x7f060028;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
         public static final int dropdown=0x7f06000f;
-        public static final int editTextHistory=0x7f06003f;
-        public static final int editTextMessage=0x7f06003d;
-        public static final int editTextPreferencePairedDev=0x7f060042;
-        public static final int editTextPreferencePassword=0x7f060041;
-        public static final int editTextPreferenceUsername=0x7f060040;
+        public static final int editTextPreferencePairedDev=0x7f060047;
+        public static final int editTextPreferencePassword=0x7f060046;
+        public static final int editTextPreferenceUsername=0x7f060045;
         public static final int edit_query=0x7f060030;
         public static final int end=0x7f060013;
         public static final int expand_activities_button=0x7f060026;
@@ -1118,11 +1134,11 @@ containing a value of this type.
         public static final int icon=0x7f06002a;
         public static final int ifRoom=0x7f06000a;
         public static final int image=0x7f060027;
-        public static final int itemLogin=0x7f060047;
-        public static final int itemPreferences=0x7f060044;
-        public static final int itemServiceStart=0x7f060045;
-        public static final int itemServiceStop=0x7f060046;
-        public static final int itemShare=0x7f060048;
+        public static final int itemLogin=0x7f06004c;
+        public static final int itemPreferences=0x7f060049;
+        public static final int itemServiceStart=0x7f06004a;
+        public static final int itemServiceStop=0x7f06004b;
+        public static final int itemShare=0x7f06004d;
         public static final int listMode=0x7f060001;
         public static final int list_item=0x7f060029;
         public static final int middle=0x7f060012;
@@ -1148,7 +1164,9 @@ containing a value of this type.
         public static final int showTitle=0x7f060006;
         public static final int split_action_bar=0x7f06001e;
         public static final int submit_area=0x7f060039;
+        public static final int surfaceView1=0x7f06003e;
         public static final int tabMode=0x7f060002;
+        public static final int textView1=0x7f060044;
         public static final int title=0x7f06002b;
         public static final int top_action_bar=0x7f060020;
         public static final int up=0x7f060021;
@@ -1205,12 +1223,19 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
-        public static final int activity_main=0x7f030018;
-        public static final int support_simple_spinner_dropdown_item=0x7f030019;
+        public static final int activity_camera_recorder=0x7f030018;
+        public static final int activity_main=0x7f030019;
+        public static final int audio_layout=0x7f03001a;
+        public static final int fragment_camera_recorder=0x7f03001b;
+        public static final int location_layout=0x7f03001c;
+        public static final int photos_layout=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
+        public static final int videos_layout=0x7f03001f;
     }
     public static final class menu {
-        public static final int main=0x7f0d0000;
-        public static final int menu=0x7f0d0001;
+        public static final int camera_recorder=0x7f0d0000;
+        public static final int main=0x7f0d0001;
+        public static final int menu=0x7f0d0002;
     }
     public static final class string {
         public static final int StringPassword=0x7f0b0013;
@@ -1268,6 +1293,7 @@ containing a value of this type.
         public static final int sendButton=0x7f0b0019;
         public static final int serverSummary=0x7f0b0016;
         public static final int titlePrefs=0x7f0b0010;
+        public static final int title_activity_camera_recorder=0x7f0b001d;
         public static final int usernameSummary=0x7f0b0012;
     }
     public static final class style {

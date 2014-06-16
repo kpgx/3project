@@ -23,7 +23,7 @@ public class QueryParser {
      * @return Query object
      */
     public static Query parse(String message) throws InvalidQueryException {
-        Log.d(TAG, "Parse: parsing query " + message);
+//        Log.d(TAG, "Parse: parsing query " + message);
         // split message and put in linked list
         // we need to user pop operation here
         String[] tokens = message.split(" ");
@@ -32,9 +32,9 @@ public class QueryParser {
         String command = getCommand(tokens);
         String user = getUser(tokens);
         HashMap<String, String> params = getParams(tokens);
-        Log.d(TAG, "Parse: command " + command);
+        /*Log.d(TAG, "Parse: command " + command);
         Log.d(TAG, "Parse: user " + user);
-        Log.d(TAG, "Parse: params " + params);
+        Log.d(TAG, "Parse: params " + params);*/
 
         return new Query(command, user, params);
     }
@@ -125,7 +125,7 @@ public class QueryParser {
      * @return query string
      */
     public static String getMessage(Query query) {
-        Log.d(TAG, "GetMessage: getting message");
+//        Log.d(TAG, "GetMessage: getting message");
         String message = query.getCommand();
 
         for(String key : query.getParams().keySet()) {
@@ -146,7 +146,7 @@ public class QueryParser {
             message = message.concat(" ").concat("@").concat(query.getUser());
         }
 
-        Log.d(TAG, "GetMessage: message " + message);
+//        Log.d(TAG, "GetMessage: message " + message);
         return message;
     }
 
