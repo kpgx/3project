@@ -41,18 +41,23 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="uploadDB"
+        android:text="testUpload" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="downloadDB"
+        android:text="testDownload" />
+    <Button
         android:id="@+id/button_videoService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Video service"
-        android:onClick="startVideoService"
-         />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Log"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:onClick="startVideoService" />
 
 </LinearLayout>

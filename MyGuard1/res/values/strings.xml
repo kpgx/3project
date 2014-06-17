@@ -17,6 +17,7 @@
     <string name="myDevices">My Trusted devices</string>
     <string name="menuItemLogin">Login</string>
     <string name="menuItemShare">Share</string>
+    <string name="title_activity_loc">LocActivity</string>
     <string name="title_activity_camera_recorder">CameraRecorder</string>
 
 </resources>

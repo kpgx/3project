@@ -6,9 +6,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.session.AppKeyPair;
+import com.dropbox.client2.session.Session.AccessType;
+
 import de.tavendo.autobahn.WebSocketConnection;
 
 public class MainActivity extends Activity {
@@ -21,7 +28,69 @@ public class MainActivity extends Activity {
 	private String password;
 	private String pairedDev;
 	private long DELAY = 500;
+	final static private String APP_KEY = "aeoi215jphyqw4v";
+	final static private String APP_SECRET = "5qxo0xk14m07khl";
+	final static private AccessType ACCESS_TYPE = AccessType.APP_FOLDER;
+	private DropboxAPI<AndroidAuthSession> mDBApi;
+	
+	public void dbLogin(){
+		mDBApi.getSession().startOAuth2Authentication(MainActivity.this);
+	}
+	public void dbInit() {
+		AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+		AndroidAuthSession session = new AndroidAuthSession(appKeys,
+				ACCESS_TYPE);
+		mDBApi = new DropboxAPI<AndroidAuthSession>(session);
+	}
+	@Override
+	protected void onResume() {
+	    super.onResume();
 
+	    if (mDBApi.getSession().authenticationSuccessful()) {
+	        try {
+	            // Required to complete auth, sets the access token on the session
+	            mDBApi.getSession().finishAuthentication();
+
+	            String accessToken = mDBApi.getSession().getOAuth2AccessToken();
+	        } catch (IllegalStateException e) {
+	            Log.i("DbAuthLog", "Error authenticating", e);
+	        }
+	    }
+	}
+	public void uploadDB(View view){
+		/*Entry response = null;
+		try {
+			File file = new File("/sdcard/DCIM/Camera/qw.jpg");
+			FileInputStream inputStream = new FileInputStream(file);
+			Log.d(TAG, "uploading");
+			response = mDBApi.putFile("/qw.jpg", inputStream,
+			                                file.length(), null, null);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Log.i("DbExampleLog", "The uploaded file's rev is: " + response.rev);*/
+		application.uploadToDB("/sdcard/hello.txt", "hello.txt");
+	}
+	public void downloadDB(View view){
+		/*try {
+			File file = new File("/sdcard/DCIM/Camera/qw1.jpg");
+			FileOutputStream outputStream = new FileOutputStream(file);
+			DropboxFileInfo info = mDBApi.getFile("/qw.jpg", null, outputStream, null);
+			Log.i("DbExampleLog", "The file's rev is: " + info.getMetadata().rev);
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		application.downloadFromDB("/sdcard/hello1.txt", "hello.txt");
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,7 +103,10 @@ public class MainActivity extends Activity {
 			username = prefs.getString("username", "");
 			password = prefs.getString("password", "");
 			pairedDev = prefs.getString("pairedDev", "");
-
+			dbInit();
+			dbLogin();
+			application.setDBApi(mDBApi);
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -45,7 +117,7 @@ public class MainActivity extends Activity {
 	final Handler handler = new Handler();
 
 	public void showLocation(View view) {
-		application.setLocation(null);
+		/*application.setLocation(null);
 		wsConnection.sendTextMessage("GET #LOCATION @" + pairedDev);
 		final Intent intent = new Intent(this, LocationActivity.class);
 		handler.postDelayed(new Runnable() {
@@ -59,6 +131,9 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		}, DELAY);
+		*/
+		final Intent intent = new Intent(this, LocActivity.class);
+		startActivity(intent);
 	}
 
 	public void showPhoto(View view) {
@@ -160,20 +235,17 @@ public class MainActivity extends Activity {
 		}
 		return true;
 	}
-	public void updateLog(String txt){
-		
-	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-	
+
 	// Creating method to start video recording
 	public void startVideoService(View view){
 		final Intent intent = new Intent(this, CameraRecorder.class);
 		startActivity(intent);
 	}
-
 }
