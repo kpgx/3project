@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyGuard1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="titlePrefs">Preferences</string>
+    <string name="StringUsername">User Name</string>
+    <string name="usernameSummary">Please Enter Your User Name</string>
+    <string name="StringPassword">Password</string>
+    <string name="passwordSummary">Please Enter Your Password</string>
+    <string name="StringServer">Server Name</string>
+    <string name="serverSummary">Please Enter the Server name</string>
+    <string name="itemServiceStart">Start Service</string>
+    <string name="itemServiceStop">Service Stop</string>
+    <string name="sendButton">Send</string>
+    <string name="myDevices">My Trusted devices</string>
+    <string name="menuItemLogin">Login</string>
+    <string name="menuItemShare">Share</string>
+    <string name="title_activity_loc">LocActivity</string>
+
+</resources>

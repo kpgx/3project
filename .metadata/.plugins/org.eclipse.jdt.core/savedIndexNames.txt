@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.126+/home/aela/repos/3project/.metadata/.plugins/org.eclipse.jdt.core
 1569547959.index
 4076830184.index
@@ -22,3 +23,34 @@ INDEX VERSION 1.126+/home/aela/repos/3project/.metadata/.plugins/org.eclipse.jdt
 743800453.index
 1289657874.index
 4197831489.index
+=======
+INDEX VERSION 1.126+F:\_UCSC\3rd Year - 1st Semester\Group project\06-17\.metadata\.plugins\org.eclipse.jdt.core
+3536676901.index
+3337334853.index
+2679118444.index
+516436898.index
+4262291952.index
+2034479230.index
+1284074322.index
+3353509425.index
+1599623656.index
+1949370912.index
+1110921891.index
+143302038.index
+783663694.index
+1122202861.index
+144300461.index
+848856923.index
+1439002695.index
+768728925.index
+2756059403.index
+2508224811.index
+3758404030.index
+1799194263.index
+135262629.index
+376511438.index
+2329269935.index
+2857171864.index
+396671966.index
+2254374662.index
+>>>>>>> 8372468c147397fd3a995ca945439cdd41f213d0
