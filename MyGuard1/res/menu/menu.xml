@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemPreferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/titlePrefs">
+    </item>
+     <item
+        android:id="@+id/itemServiceStart"
+        android:icon="@android:drawable/ic_media_play"
+        android:title="@string/itemServiceStart">
+    </item>
+    <item
+        android:id="@+id/itemServiceStop"
+        android:icon="@android:drawable/ic_media_pause"
+        android:title="@string/itemServiceStop">
+    </item>
+    <item
+        android:id="@+id/itemLogin"
+        android:icon="@android:drawable/ic_menu_call"
+        android:title="@string/menuItemLogin">
+    </item>
+    <item
+        android:id="@+id/itemShare"
+        android:icon="@drawable/ic_menu_allfriends"
+        android:title="@string/menuItemShare">
+    </item>
+    
+    
+
+</menu>

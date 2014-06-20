@@ -11,14 +11,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LocActivity extends FragmentActivity {
+	private static final String TAG = LocActivity.class.getSimpleName();
+	String location;
     private GoogleMap mMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loc);
-        double lat=6.927078600000000000;
-        double lng=79.861243000000060000;
+        Bundle b = getIntent().getExtras();
+	    location = b.getString("location");
+	    String latNlon[]=location.split(",");
+        double lat=Double.parseDouble(latNlon[1]);
+        double lng=Double.parseDouble(latNlon[0]);
         LatLng loc=new LatLng(lat, lng);
         ViewLocation(loc);
     }

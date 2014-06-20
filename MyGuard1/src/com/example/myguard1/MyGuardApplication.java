@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.app.Application;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.dropbox.client2.DropboxAPI;
@@ -44,6 +47,13 @@ OnSharedPreferenceChangeListener {
 	
 	//fname="/sdcard/DCIM/Camera/qw.jpg"
 	//fnameDB=qw.jpg
+	public String getVideoLink(){
+		return videoLink;
+	}
+	public void setVideoLink(){
+		videoLink = "/sdcard/Surveillance_namil/" + "VID_"+ new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+
+	}
 	public void uploadToDB(String fname,String fnameDB) {
 
 		try {
@@ -92,9 +102,9 @@ OnSharedPreferenceChangeListener {
 		super.onCreate();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefs.registerOnSharedPreferenceChangeListener(this);
-		username = prefs.getString("username", "");
-		password = prefs.getString("password", "");
-		pairedDev = prefs.getString("pairedDev", "");
+		username = prefs.getString("username", "u1");
+		password = prefs.getString("password", "1234");
+		pairedDev = prefs.getString("pairedDev", "u2");
 		/*
 		 * location=username+"'s_location_val";
 		 * photoLink=username+"'s_photolink_val";
@@ -166,9 +176,7 @@ OnSharedPreferenceChangeListener {
 		location = loc;
 	}
 
-	public String getLocation() {
-		return location;
-	}
+	
 
 	public void startService() {
 		startService(new Intent(this, WebSocketService.class));
@@ -192,6 +200,22 @@ OnSharedPreferenceChangeListener {
 		wsConnection.sendTextMessage("LOGIN #name " + username + " #skey "
 				+ password + " @mysensors\n");
 		userLogged = true;
+	}
+	public void startVideoService(){
+		final Intent intent = new Intent(this, CameraRecorder.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+		
+	}
+	public void setLocation(){
+		GPSTracker gps = new GPSTracker(this);
+        double lng=gps.getLongitude();
+        double lat=gps.getLatitude();
+		location=Double.toString(lng)+","+Double.toString(lat);
+        
+	}
+	public String getLocation(){
+		return location;
 	}
 
 }

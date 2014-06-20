@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 	private String username;
 	private String password;
 	private String pairedDev;
-	private long DELAY = 500;
+	private long DELAY = 5000;
 	final static private String APP_KEY = "aeoi215jphyqw4v";
 	final static private String APP_SECRET = "5qxo0xk14m07khl";
 	final static private AccessType ACCESS_TYPE = AccessType.APP_FOLDER;
@@ -100,9 +100,9 @@ public class MainActivity extends Activity {
 			wsConnection = ((MyGuardApplication) getApplication())
 					.getWsConnection();
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
-			username = prefs.getString("username", "");
-			password = prefs.getString("password", "");
-			pairedDev = prefs.getString("pairedDev", "");
+			username = prefs.getString("username", "u1");
+			password = prefs.getString("password", "1234");
+			pairedDev = prefs.getString("pairedDev", "u2");
 			dbInit();
 			dbLogin();
 			application.setDBApi(mDBApi);
@@ -117,9 +117,9 @@ public class MainActivity extends Activity {
 	final Handler handler = new Handler();
 
 	public void showLocation(View view) {
-		/*application.setLocation(null);
+		application.setLocation(null);
 		wsConnection.sendTextMessage("GET #LOCATION @" + pairedDev);
-		final Intent intent = new Intent(this, LocationActivity.class);
+		final Intent intent = new Intent(this, LocActivity.class);
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -131,9 +131,9 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		}, DELAY);
-		*/
-		final Intent intent = new Intent(this, LocActivity.class);
-		startActivity(intent);
+		
+		/*final Intent intent = new Intent(this, LocActivity.class);
+		startActivity(intent);*/
 	}
 
 	public void showPhoto(View view) {
@@ -157,18 +157,20 @@ public class MainActivity extends Activity {
 	public void showVideo(View view) {
 		application.setVideo(null);
 		wsConnection.sendTextMessage("GET #VIDEO @" + pairedDev);
-		final Intent intent = new Intent(this, VideosActivity.class);
+		/*final Intent intent = new Intent(this, VideosActivity.class);
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				// Do something after DELAY
-				String vid = application.getVideo();
+				String vid = application.getVideoLink();
 				Bundle b = new Bundle();
 				b.putString("video", vid); // Your id
 				intent.putExtras(b); // Put your id to your next Intent
+				Log.d(TAG, "starting activity getvideo");
 				startActivity(intent);
+				Log.d(TAG, "started activity getvideo");
 			}
-		}, DELAY);
+		}, DELAY);*/
 
 	}
 
@@ -247,5 +249,6 @@ public class MainActivity extends Activity {
 	public void startVideoService(View view){
 		final Intent intent = new Intent(this, CameraRecorder.class);
 		startActivity(intent);
+		
 	}
 }

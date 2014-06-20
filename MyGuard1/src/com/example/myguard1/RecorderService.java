@@ -25,15 +25,16 @@ public class RecorderService extends Service {
 	private static Camera mServiceCamera;
 	private boolean mRecordingStatus;
 	private MediaRecorder mMediaRecorder;
+	MyGuardApplication application;
 
 	@Override
 	public void onCreate() {
+		super.onCreate();
 		mRecordingStatus = false;
 		mServiceCamera = CameraRecorder.mCamera;
 		mSurfaceView = CameraRecorder.mSurfaceView;
-		mSurfaceHolder = CameraRecorder.mSurfaceHolder;
-
-		super.onCreate();
+		mSurfaceHolder = CameraRecorder.mSurfaceHolder;		
+		application = ((MyGuardApplication) getApplication());
 	}
 
 	@Override
@@ -109,7 +110,9 @@ public class RecorderService extends Service {
 		            Log.d("failed to create directory","namil recorder");
 		        	}
 		    	}
-		    String filePath = "/sdcard/Surveillance_namil/" + "VID_"+ new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+//		    String filePath = "/sdcard/Surveillance_namil/" + "VID_"+ new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+		    application.setVideoLink();
+		    String filePath = application.getVideoLink();
 		    mMediaRecorder.setOutputFile(filePath);
 			//mMediaRecorder.setOutputFile("/sdcard/video.mp4");
 			mMediaRecorder.setVideoFrameRate(30);
@@ -153,5 +156,9 @@ public class RecorderService extends Service {
 
 		mServiceCamera.release();
 		mServiceCamera = null;
+		String fname=application.getVideoLink();
+		Log.d(TAG, "started uploading");
+		application.uploadToDB(fname, fname);
+		Log.d(TAG, "finished uploading");
 	}
 }

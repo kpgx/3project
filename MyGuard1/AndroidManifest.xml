@@ -94,7 +94,7 @@
         <!-- map s -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCtuBRrLWmSkDv4Se-t5fvkzuEjNSkycNg" />
+            android:value="AIzaSyBYVY8PJlJRI4QPb_Bhia92feWKUsnWk6o" />
         <!-- map e -->
         <activity
             android:name="com.example.myguard1.CameraRecorder"

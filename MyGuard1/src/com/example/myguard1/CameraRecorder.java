@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ public class CameraRecorder extends Activity implements SurfaceHolder.Callback {
 	public static Camera mCamera;
 	public static boolean mPreviewRunning;
 	private Timer mStopTimer;
+	MyGuardApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class CameraRecorder extends Activity implements SurfaceHolder.Callback {
 		mSurfaceHolder = mSurfaceView.getHolder();
 		mSurfaceHolder.addCallback(this);
 		mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
+		application = ((MyGuardApplication) getApplication());
 		// initializing 2 buttons, Start recording and stop recording.
 
 		Button btnStart = (Button) findViewById(R.id.StartService);
@@ -125,7 +127,7 @@ public class CameraRecorder extends Activity implements SurfaceHolder.Callback {
 				// TODO Auto-generated method stub
 				stopService(new Intent(CameraRecorder.this,RecorderService.class));
 			}
-		}, 60 * 1000);
+		}, 5 * 1000);
 		finish();
 	}
 
@@ -135,4 +137,5 @@ public class CameraRecorder extends Activity implements SurfaceHolder.Callback {
 
 	}
 
+	
 }
